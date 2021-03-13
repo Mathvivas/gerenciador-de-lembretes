@@ -6,6 +6,7 @@ app.use(express.json());
 
 app.post('/eventos', (req, res) => {
     const evento = req.body;
+    console.log(evento);
     // Envia o evento para o microsserviço de lembretes
     axios.post('https://localhost:4000/eventos', evento);
     // Envia o evento para o microsserviço de observações
