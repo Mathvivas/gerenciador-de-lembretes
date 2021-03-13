@@ -1,4 +1,6 @@
 // Para inicializar o server: npm start
+// Para listar um processo em certo port: lsof -i:PORT
+// Para matar um processo em certo port: kill $(lsof -t -i:PORT)
 
 const express = require ('express');
 const bodyParser = require('body-parser');
