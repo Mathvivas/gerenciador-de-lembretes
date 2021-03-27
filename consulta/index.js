@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios')
 const app = express();
 
 app.use(express.json());
@@ -13,9 +14,10 @@ const funcoes = {
         baseConsulta[observacao.lembreteId]['observacoes'] = observacoes;
     },
     ObservacaoAtualizada: (observacao) => {
-        const observacoes = baseConsulta[observacoes.lembreteId]['observacoes']
-        const indice = observacoes.findIndex(o => o.id === observacao.id)
-        observacoes[indice] = observacao
+        const observacoes = baseConsulta[observacao.lembreteId]['observacoes'];
+    
+        const indice = observacoes.findIndex(o => o.id === observacao.id);
+        observacoes[indice] = observacao;
     }
 }
 
@@ -32,4 +34,12 @@ app.post('/eventos', (req, res) => {
     res.status(200).send(baseConsulta);
 });
 
-app.listen(6000, () => console.log("Microsserviço de Consulta. Porta 6000."));
+app.listen(6000, async () => {
+    const resp = await axios.get('http://localhost:10000/eventos')
+    resp.data.forEach((( valor, indice, colecao ) => {
+        try {
+            funcoes[valor.tipo](valor.dados)
+        } catch(err) {}
+    }))
+    console.log("Microsserviço de Consulta. Porta 6000.")
+});
