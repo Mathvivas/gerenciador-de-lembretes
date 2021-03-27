@@ -1,2 +1,2 @@
 # gerenciador-de-lembretes
-Gerenciador de Lembretes utilizando NodeJs e Postman.
+- Gerenciador de Lembretes utilizando NodeJs, Postman e Microsserviços.
